@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Тапсырыс қабылданды{% endblock %}
+{% block content %}
+<section class="success">
+    <h1>✅ Тапсырыс қабылданды!</h1>
+    <p>Тапсырыс нөмірі: <strong>#{{ order.id }}</strong></p>
+    <p>Сомасы: <strong>{{ "%.0f"|format(order.total) }} ₸</strong></p>
+    <p>Асхана тапсырысты дайындауды бастайды.</p>
+    <a class="button" href="/menu">Жаңа тапсырыс</a>
+</section>
+{% endblock %}

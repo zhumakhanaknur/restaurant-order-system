@@ -1,0 +1,48 @@
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6f8;
+    color: #222;
+}
+header {
+    background: #222;
+    color: white;
+    padding: 16px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header a { color: white; text-decoration: none; margin-left: 18px; }
+.logo { font-weight: bold; margin-left: 0; }
+main { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+.hero, .success, .card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+.hero { text-align: center; padding: 70px 25px; }
+.button, button {
+    border: 0;
+    border-radius: 10px;
+    padding: 12px 18px;
+    cursor: pointer;
+}
+.button {
+    display: inline-block;
+    background: #222;
+    color: white;
+    text-decoration: none;
+}
+.menu-grid, .orders {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+.card button { margin: 12px 5px 0; }
+.cart { margin-top: 25px; text-align: center; }
+.narrow { max-width: 550px; margin: auto; }
+.success { text-align: center; }
+.error { color: #b00020; }
+select { padding: 10px; border-radius: 8px; }
