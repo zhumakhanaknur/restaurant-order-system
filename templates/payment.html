@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Төлем{% endblock %}
+{% block content %}
+<div class="card narrow">
+    <h1>Төлем</h1>
+    <p>Тапсырыс №{{ order_id if order_id else 1 }}</p>
+    <ul>
+    {% for name, quantity in order.items() %}
+        <li>{{ name }} × {{ quantity }}</li>
+    {% endfor %}
+    </ul>
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+    <form method="post">
+        <button class="button" type="submit">Төлемді растау</button>
+    </form>
+</div>
+{% endblock %}sssss

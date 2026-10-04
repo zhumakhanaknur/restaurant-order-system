@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Мәзір{% endblock %}
+{% block content %}
+<h1>Мәзір</h1>
+<div class="menu-grid">
+{% for item in menu %}
+    <div class="card">
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.description }}</p>
+        <strong>{{ "%.0f"|format(item.price) }} ₸</strong>
+        <div>
+            <button onclick="changeQty({{ item.id }}, -1)">−</button>
+            <span id="qty-{{ item.id }}">0</span>
+            <button onclick="changeQty({{ item.id }}, 1)">+</button>
+        </div>
+    </div>
+{% endfor %}
+</div>
+<div class="cart">
+    <h2>Тапсырыс</h2>
+    <p>Жалпы: <strong id="total">0</strong> ₸</p>
+    <button class="button" onclick="createOrder()">Тапсырыс жасау</button>
+</div>
+<script>
+const menu = {{ menu|tojson }};
+const cart = {};
+
+function changeQty(id, delta) {
+    cart[id] = Math.max(0, (cart[id] || 0) + delta);
+    document.getElementById("qty-" + id).textContent = cart[id];
+    updateTotal();
+}
+
+function updateTotal() {
+    let total = 0;
+    menu.forEach(item => total += item.price * (cart[item.id] || 0));
+    document.getElementById("total").textContent = total.toLocaleString("kk-KZ");
+}
+
+async function createOrder() {
+    const items = Object.entries(cart)
+        .filter(([id, quantity]) => quantity > 0)
+        .map(([id, quantity]) => ({menu_id: Number(id), quantity}));
+
+    if (!items.length) {
+        alert("Алдымен тағам таңдаңыз.");
+        return;
+    }
+
+    const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({items})
+    });
+    const result = await response.json();
+
+    if (result.success) {
+        window.location.href = "/payment/" + result.order_id;
+    } else {
+        alert(result.message);
+    }
+}
+</script>
+{% endblock %}
