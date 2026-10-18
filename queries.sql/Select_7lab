@@ -1,0 +1,31 @@
+-- 7-ші Зертханалық жұмыс: Аналитикалық SELECT сұраныстары
+
+-- 1. Әр санаттағы тағамдар санын анықтау (GROUP BY және агрегаттық функция)
+SELECT category, COUNT(dish_id) AS total_dishes
+FROM dishes
+GROUP BY category;
+
+-- 2. Орташа бағадан қымбат немесе тең тағамдарды сұрыптау (ORDER BY және ішкі сұраныс)
+SELECT name, price, category
+FROM dishes
+WHERE price >= (SELECT AVG(price) FROM dishes)
+ORDER BY price DESC;
+
+-- 3. Белгілі бір категориядағы қайталанбайтын тағам бағаларын көру (DISTINCT және WHERE)
+SELECT DISTINCT category, price
+FROM dishes
+WHERE is_available = TRUE
+ORDER BY price ASC;
+
+-- 4. Әр қолданушының жасаған жалпы тапсырыс сомасын есептеу және сүзгілеу (JOIN, GROUP BY, HAVING)
+SELECT u.name AS user_name, SUM(o.total_amount) AS total_spent
+FROM orders o
+JOIN users u ON o.user_id = u.user_id
+GROUP BY u.name
+HAVING SUM(o.total_amount) >= 4000;
+
+-- 5. Бірнеше шарттар арқылы тапсырыстарды іздеу және сұрыптау (WHERE, ORDER BY)
+SELECT order_id, table_number, total_amount, status, created_at
+FROM orders
+WHERE table_number = 4 AND status != 'Cancelled'
+ORDER BY created_at DESC;
