@@ -1,3 +1,4 @@
+```mermaid
 graph LR
     subgraph System["Ресторан тапсырыс жүйесі"]
         UC1(("Меню қарау"))
