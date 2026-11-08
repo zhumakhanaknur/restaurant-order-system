@@ -14,19 +14,21 @@ graph TD
         C["Python (FastAPI)<br>API мен Логика"]
     end
 
-    subgraph DataAccess ["4. Деректерді өңдеу (SQLite SQL)"]
-        D["sqlite3 модулі<br>SQL сұраныстары:<br>- INSERT, UPDATE, DELETE"]
+    subgraph DataAccess ["4. Деректерді өңдеу"]
+        D["sqlite3 модулі<br>SQL сұраныстары"]
     end
 
     subgraph Database ["5. SQLite БД"]
         E[("Кестелер:<br>- users<br>- dishes<br>- orders<br>- order_items<br>- payments")]
     end
 
+    %% Бағытталған протоколдар мен байланыстар
     A1 & A2 & A3 -->|HTTPS| B
-    B -->|REST API| C
-    C -->|SQL Queries| D
-    D -->|SQL Commands| E
-    E -->|Rows / Data| D
-    D -->|Python Objects| C
+    B -->|HTTP REST API| C
+    C -->|TCP/IP & SQL| D
+    D -->|SQLite Protocol| E
+    
+    E -->|Rows| D
+    D -->|Objects| C
     C -->|JSON| B
-    B -->|UI| A1 & A2 & A3
+    B -->|UI Render| A1 & A2 & A3g
